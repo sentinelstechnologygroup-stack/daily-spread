@@ -8,12 +8,12 @@ const GALLERY_IMAGES = [
   { src: "https://daily-spread.com/wp-content/uploads/2017/07/Catering.jpg", alt: "Daily Spread catering display with fresh food" },
   { src: "https://daily-spread.com/wp-content/uploads/2017/07/Food1.jpg", alt: "Chef-prepared meal from Daily Spread" },
   // GENERATED PLACEHOLDERS — replace with real photos from Stephanie
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/39fc17487_generated_b7541871.png", alt: "Corporate catering setup with grilled chicken and fresh salads" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/9343014c7_generated_edbaa02d.png", alt: "Small event catering with appetizers and desserts" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/9c6efda45_generated_a26f10a4.png", alt: "Buffet-style catering spread with chafing dishes" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/0d8f81f44_generated_a86da72c.png", alt: "Elegant desserts including chocolate cake and fruit tart" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/d51b86c61_generated_73ccf05e.png", alt: "Plated chef-prepared dinner for two with fresh sides" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/3bea38a78_generated_eb659072.png", alt: "Family-style dinner spread for four" },
+  { src: "/images/39fc17487_generated_b7541871.png", alt: "Corporate catering setup with grilled chicken and fresh salads" },
+  { src: "/images/9343014c7_generated_edbaa02d.png", alt: "Small event catering with appetizers and desserts" },
+  { src: "/images/9c6efda45_generated_a26f10a4.png", alt: "Buffet-style catering spread with chafing dishes" },
+  { src: "/images/0d8f81f44_generated_a86da72c.png", alt: "Elegant desserts including chocolate cake and fruit tart" },
+  { src: "/images/d51b86c61_generated_73ccf05e.png", alt: "Plated chef-prepared dinner for two with fresh sides" },
+  { src: "/images/3bea38a78_generated_eb659072.png", alt: "Family-style dinner spread for four" },
 ];
 
 export default function GalleryStrip() {

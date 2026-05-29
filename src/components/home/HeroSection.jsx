@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 // GENERATED PLACEHOLDER — replace with real chef photo from Stephanie
-const HERO_IMAGE = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/7c764971f_generated_d773e75f.png";
+const HERO_IMAGE = "/images/7c764971f_generated_d773e75f.png";
 
 export default function HeroSection() {
   return (

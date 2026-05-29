@@ -5,7 +5,7 @@ import { Users, Building2, Heart, PartyPopper } from "lucide-react";
 import SectionHeading from "../shared/SectionHeading";
 
 // GENERATED PLACEHOLDER — replace with real catering photos
-const CATERING_IMAGE = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/e32d7656f_generated_d03d63c1.png";
+const CATERING_IMAGE = "/images/e32d7656f_generated_d03d63c1.png";
 
 const HIGHLIGHTS = [
   { icon: Building2, label: "Corporate Lunches", desc: "Impress your team with fresh, chef-prepared meals for any business occasion." },

@@ -5,7 +5,7 @@ import { ChefHat, Heart, MapPin, Award } from "lucide-react";
 import SectionHeading from "../components/shared/SectionHeading";
 
 // GENERATED PLACEHOLDER — replace with real chef/team photo
-const CHEF_IMAGE = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/7c764971f_generated_d773e75f.png";
+const CHEF_IMAGE = "/images/7c764971f_generated_d773e75f.png";
 
 export default function About() {
   useEffect(() => {

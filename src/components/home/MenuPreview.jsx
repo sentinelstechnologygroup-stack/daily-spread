@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Eye, ArrowRight } from "lucide-react";
 
 // GENERATED PLACEHOLDER — replace with real food photo
-const FOOD_IMAGE = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/883720038_generated_f14e855b.png";
+const FOOD_IMAGE = "/images/883720038_generated_f14e855b.png";
 
 export default function MenuPreview() {
   return (

@@ -4,10 +4,10 @@ import { Building2, Users, Heart, PartyPopper, Utensils, Star } from "lucide-rea
 import SectionHeading from "../components/shared/SectionHeading";
 
 // GENERATED PLACEHOLDERS — replace with real photos from Stephanie
-const CATERING_HERO = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/e32d7656f_generated_d03d63c1.png";
-const CORPORATE_IMG = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/39fc17487_generated_b7541871.png";
-const EVENT_IMG = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/9343014c7_generated_edbaa02d.png";
-const BUFFET_IMG = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/9c6efda45_generated_a26f10a4.png";
+const CATERING_HERO = "/images/e32d7656f_generated_d03d63c1.png";
+const CORPORATE_IMG = "/images/39fc17487_generated_b7541871.png";
+const EVENT_IMG = "/images/9343014c7_generated_edbaa02d.png";
+const BUFFET_IMG = "/images/9c6efda45_generated_a26f10a4.png";
 
 const CUISINES = [
   { name: "Italian Cuisine", desc: "Spaghetti, Chicken Marsala, Lasagna, Chicken Primavera with fresh salads and homemade garlic bread." },

@@ -5,8 +5,8 @@ import { CalendarDays, ShoppingBag, Utensils } from "lucide-react";
 import SectionHeading from "../shared/SectionHeading";
 
 // GENERATED PLACEHOLDER — replace with real photos
-const MEAL_FOR_TWO = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/d51b86c61_generated_73ccf05e.png";
-const FAMILY_MEAL = "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/3bea38a78_generated_eb659072.png";
+const MEAL_FOR_TWO = "/images/d51b86c61_generated_73ccf05e.png";
+const FAMILY_MEAL = "/images/3bea38a78_generated_eb659072.png";
 
 const STEPS = [
   {

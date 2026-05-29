@@ -7,15 +7,15 @@ const IMAGES = [
   { src: "https://daily-spread.com/wp-content/uploads/2017/07/Catering.jpg", alt: "Daily Spread catering event display", category: "Catering" },
   { src: "https://daily-spread.com/wp-content/uploads/2017/07/Food1.jpg", alt: "Fresh chef-prepared meal from Daily Spread", category: "Prepared Meals" },
   // GENERATED PLACEHOLDERS — replace with real photos from Stephanie
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/e32d7656f_generated_d03d63c1.png", alt: "Elegant catering spread for a celebration event", category: "Catering" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/39fc17487_generated_b7541871.png", alt: "Corporate catering setup with grilled chicken and salads", category: "Catering" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/9c6efda45_generated_a26f10a4.png", alt: "Buffet-style catering with chafing dishes", category: "Catering" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/d51b86c61_generated_73ccf05e.png", alt: "Plated chef-prepared dinner for two with salmon", category: "Prepared Meals" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/3bea38a78_generated_eb659072.png", alt: "Family-style dinner spread for four", category: "Prepared Meals" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/883720038_generated_f14e855b.png", alt: "Fresh seasonal ingredients for chef-prepared meals", category: "Seasonal Specials" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/0d8f81f44_generated_a86da72c.png", alt: "Elegant desserts including chocolate cake and fruit tart", category: "Seasonal Specials" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/9343014c7_generated_edbaa02d.png", alt: "Small event catering with appetizers and desserts", category: "Events" },
-  { src: "https://media.base44.com/images/public/6a15b633b62c7abf2b26d54b/7c764971f_generated_d773e75f.png", alt: "Daily Spread chef in the kitchen preparing meals", category: "Events" },
+  { src: "/images/e32d7656f_generated_d03d63c1.png", alt: "Elegant catering spread for a celebration event", category: "Catering" },
+  { src: "/images/39fc17487_generated_b7541871.png", alt: "Corporate catering setup with grilled chicken and salads", category: "Catering" },
+  { src: "/images/9c6efda45_generated_a26f10a4.png", alt: "Buffet-style catering with chafing dishes", category: "Catering" },
+  { src: "/images/d51b86c61_generated_73ccf05e.png", alt: "Plated chef-prepared dinner for two with salmon", category: "Prepared Meals" },
+  { src: "/images/3bea38a78_generated_eb659072.png", alt: "Family-style dinner spread for four", category: "Prepared Meals" },
+  { src: "/images/883720038_generated_f14e855b.png", alt: "Fresh seasonal ingredients for chef-prepared meals", category: "Seasonal Specials" },
+  { src: "/images/0d8f81f44_generated_a86da72c.png", alt: "Elegant desserts including chocolate cake and fruit tart", category: "Seasonal Specials" },
+  { src: "/images/9343014c7_generated_edbaa02d.png", alt: "Small event catering with appetizers and desserts", category: "Events" },
+  { src: "/images/7c764971f_generated_d773e75f.png", alt: "Daily Spread chef in the kitchen preparing meals", category: "Events" },
 ];
 
 export default function Gallery() {
