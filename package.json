@@ -10,7 +10,8 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc -p ./jsconfig.json",
     "preview": "vite preview",
-    "pull:base44-images": "node scripts/pull-base44-images.mjs"
+    "gallery": "node scripts/build-gallery.js",
+    "prebuild": "npm run gallery"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
