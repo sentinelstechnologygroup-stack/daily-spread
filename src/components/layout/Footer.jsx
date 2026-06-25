@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <img
-              src="/images/8dfbc4da5_image.jpeg"
+              src="/images/logo.jpeg"
               alt="Daily Spread logo"
               className="h-16 w-auto mb-4"
             />

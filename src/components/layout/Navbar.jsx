@@ -50,7 +50,7 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
             <Link to="/" className="flex items-center gap-3">
               <img
-                src="/images/8dfbc4da5_image.jpeg"
+                src="/images/logo.jpeg"
                 alt="Daily Spread logo"
                 className="h-12 md:h-14 w-auto"
               />
