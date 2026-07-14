@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-// GENERATED PLACEHOLDER — replace with real chef photo from Stephanie
-const HERO_IMAGE = "/images/7c764971f_generated_d773e75f.png";
+const HERO_IMAGE = "/images/hero/home-hero.png";
 
 export default function HeroSection() {
   return (

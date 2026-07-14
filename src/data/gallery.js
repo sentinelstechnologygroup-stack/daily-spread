@@ -916,6 +916,31 @@ const galleryImages = [
     "src": "/images/desserts/104.webp",
     "category": "Desserts",
     "alt": "Daily Spread Desserts - 104"
+  },
+  {
+    "src": "/images/hero/about-hero.png",
+    "category": "Hero",
+    "alt": "Daily Spread Hero - About Hero"
+  },
+  {
+    "src": "/images/hero/catering-hero.png",
+    "category": "Hero",
+    "alt": "Daily Spread Hero - Catering Hero"
+  },
+  {
+    "src": "/images/hero/gallery-hero.png",
+    "category": "Hero",
+    "alt": "Daily Spread Hero - Gallery Hero"
+  },
+  {
+    "src": "/images/hero/home-hero.png",
+    "category": "Hero",
+    "alt": "Daily Spread Hero - Home Hero"
+  },
+  {
+    "src": "/images/hero/menu-hero.png",
+    "category": "Hero",
+    "alt": "Daily Spread Hero - Menu Hero"
   }
 ];
 

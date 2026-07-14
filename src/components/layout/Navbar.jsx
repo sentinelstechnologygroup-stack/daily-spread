@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Mail } from "lucide-react";
+import { Mail, Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const NAV_LINKS = [
-  { label: "Home", path: "/" },
   { label: "About Us", path: "/about" },
   { label: "Menu", path: "/menu" },
   { label: "Catering", path: "/catering" },
   { label: "Gallery", path: "/gallery" },
   { label: "Contact", path: "/contact" },
 ];
+
+const ORDER_URL = "https://www.opendining.net/menu/53d035ebf61e46461f212cab";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -27,7 +28,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Top bar */}
       <div className="bg-foreground text-primary-foreground py-2 px-4 text-sm font-body hidden md:block">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <span className="opacity-80">Bakery, Prepared Meals & Catering — Cedar Park, TX</span>
@@ -42,80 +42,62 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Main nav */}
       <nav className={`sticky top-0 z-50 transition-all duration-300 font-body ${
         scrolled ? "bg-card/95 backdrop-blur-md shadow-md" : "bg-card shadow-sm"
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            <Link to="/" className="flex items-center gap-3">
-              <img
-                src="/images/logo.jpeg"
-                alt="Daily Spread logo"
-                className="h-12 md:h-14 w-auto"
-              />
+            <Link to="/" className="flex items-center gap-3" aria-label="Daily Spread home">
+              <img src="/images/logo.jpeg" alt="Daily Spread logo" className="h-12 md:h-14 w-auto" />
             </Link>
 
-            {/* Desktop */}
             <div className="hidden lg:flex items-center gap-1">
-              {NAV_LINKS.map((l) => (
+              {NAV_LINKS.map((link) => (
                 <Link
-                  key={l.path}
-                  to={l.path}
+                  key={link.path}
+                  to={link.path}
                   className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                    location.pathname === l.path
+                    location.pathname === link.path
                       ? "text-primary"
                       : "text-foreground/70 hover:text-foreground hover:bg-muted"
                   }`}
                 >
-                  {l.label}
+                  {link.label}
                 </Link>
               ))}
-              <a
-                href="https://www.opendining.net/menu/53d035ebf61e46461f212cab"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button size="sm" className="ml-3 font-semibold">
-                  Order Online
-                </Button>
+              <a href={ORDER_URL} target="_blank" rel="noopener noreferrer">
+                <Button size="sm" className="ml-3 font-semibold">Order Now</Button>
               </a>
             </div>
 
-            {/* Mobile toggle */}
             <button
-              onClick={() => setOpen(!open)}
+              onClick={() => setOpen((current) => !current)}
               className="lg:hidden p-2 rounded-md hover:bg-muted transition-colors"
               aria-label="Toggle navigation"
+              aria-expanded={open}
             >
               {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
         {open && (
           <div className="lg:hidden border-t bg-card px-4 pb-4 pt-2">
-            {NAV_LINKS.map((l) => (
+            {NAV_LINKS.map((link) => (
               <Link
-                key={l.path}
-                to={l.path}
+                key={link.path}
+                to={link.path}
                 className={`block px-3 py-3 rounded-md text-sm font-medium transition-colors ${
-                  location.pathname === l.path
+                  location.pathname === link.path
                     ? "text-primary bg-primary/5"
                     : "text-foreground/70 hover:text-foreground hover:bg-muted"
                 }`}
               >
-                {l.label}
+                {link.label}
               </Link>
             ))}
-            <a
-              href="https://www.opendining.net/menu/53d035ebf61e46461f212cab"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block mt-2"
-            >
-              <Button className="w-full font-semibold">Order Online</Button>
+            <a href={ORDER_URL} target="_blank" rel="noopener noreferrer" className="block mt-2">
+              <Button className="w-full font-semibold">Order Now</Button>
             </a>
             <div className="mt-3 pt-3 border-t flex flex-col gap-2 text-sm text-muted-foreground">
               <a href="tel:5128153540" className="flex items-center gap-2">
