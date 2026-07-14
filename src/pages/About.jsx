@@ -46,13 +46,13 @@ export default function About() {
               <SectionHeading eyebrow="Who We Are" title="Daily Spread" centered={false} />
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Daily Spread is a kitchen that provides delicious chef-prepared meals and catering services for busy families, businesses, and special occasions. We offer fully cooked meals featuring entrees, sides, and more — crafted with fresh, quality ingredients by our talented chefs.
+                  Daily Spread is a kitchen that provides delicious chef-prepared meals and catering services for busy families, businesses, and special occasions. We offer fully cooked meals featuring entrées, sides, and bakery items—crafted with fresh, quality ingredients by our talented chefs
                 </p>
                 <p>
-                  Our chefs have the ability to design spectacular meals to fit any budget and any palate — from international fare with dishes from various countries to simple single-dish meals or just hors d'oeuvres.
+                  Our chefs can design spectacular meals to fit nearly any budget and palate, from international cuisine representing countries around the world to simple single-dish meals and elegant hors d'oeuvres.
                 </p>
                 <p>
-                  Everything is served family-style, making it easy to share a wonderful meal without the effort of cooking. We're proud to serve the Cedar Park community with personal, chef-driven service.
+                  Everything is served family-style, making it easy to enjoy a wonderful meal without the effort of cooking. We're proud to serve the Cedar Park community with personal, chef-driven service and a commitment to quality.
                 </p>
               </div>
             </div>
