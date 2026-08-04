@@ -16,6 +16,7 @@ import {
 } from "../../lib/paytronixMenuApi";
 
 const WEEKLY_DINNER_CATEGORY = "Weekly Dinner Series";
+const WEEKLY_CURRENT_PREFIX = "WDS CURRENT";
 const FALLBACK_DINNER_IMAGE = "/images/catering/34.webp";
 
 function isWeeklyDinnerCategory(category) {
@@ -32,6 +33,21 @@ function isCategoryIntroduction(item) {
   );
 }
 
+function isCurrentWeeklyDinner(item) {
+  return String(item?.name || "")
+    .trim()
+    .toUpperCase()
+    .startsWith(WEEKLY_CURRENT_PREFIX);
+}
+
+function getWeeklyDinnerDisplayName(item) {
+  const name = String(item?.name || "").trim();
+  if (!isCurrentWeeklyDinner(item)) return name;
+
+  const nameParts = name.split(/\s+[—–-]\s+/);
+  return nameParts.length >= 3 ? nameParts.slice(2).join(" – ") : name;
+}
+
 function WeeklyDetails({ item }) {
   if (!item?.optionGroups?.length && !item?.prices?.length) return null;
 
@@ -42,7 +58,7 @@ function WeeklyDetails({ item }) {
           key={`${item.id}-${group.name}`}
           className="rounded-2xl border border-[#dbe6ee] bg-white/80 p-4"
         >
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#c66d1e]">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#164f7c]">
             {group.name}
           </p>
           <ul className="space-y-2">
@@ -61,7 +77,7 @@ function WeeklyDetails({ item }) {
 
       {!!item.prices.length && (
         <div className="rounded-2xl border border-[#dbe6ee] bg-white/80 p-4">
-          <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#c66d1e]">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-[#164f7c]">
             Dinner Options
           </p>
           <div className="space-y-2">
@@ -119,6 +135,9 @@ export default function SpecialMeals() {
       menuData.items
         .filter((item) => isWeeklyDinnerCategory(item.category))
         .sort((a, b) => {
+          if (isCurrentWeeklyDinner(a) !== isCurrentWeeklyDinner(b)) {
+            return isCurrentWeeklyDinner(a) ? -1 : 1;
+          }
           if (isCategoryIntroduction(a) !== isCategoryIntroduction(b)) {
             return isCategoryIntroduction(a) ? 1 : -1;
           }
@@ -138,7 +157,7 @@ export default function SpecialMeals() {
   return (
     <section className="relative overflow-hidden bg-[#eef5fa] py-20 md:py-28">
       <div className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-[#d7e8f3]/80 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-[#f2d9c2]/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-[#c9deec]/60 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
@@ -165,7 +184,7 @@ export default function SpecialMeals() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#102f47]/80 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 text-white sm:p-8">
               <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/25 bg-[#102f47]/55 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] backdrop-blur-sm">
-                <Sparkles className="h-3.5 w-3.5 text-[#efb277]" />
+                <Sparkles className="h-3.5 w-3.5 text-[#b8d6ea]" />
                 Freshly prepared in Cedar Park
               </div>
               {!featuredItem.image && (
@@ -177,13 +196,13 @@ export default function SpecialMeals() {
           </div>
 
           <div className="flex flex-col justify-center p-6 sm:p-9 lg:p-12">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-[#c66d1e]">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-[#164f7c]">
               {introductionOnly ? "This Week’s Dinner" : "This Week’s Feature"}
             </p>
             <h3 className="mb-4 font-heading text-3xl font-semibold leading-tight text-[#163f60] sm:text-4xl">
               {introductionOnly
                 ? "A restaurant-quality dinner—without the restaurant"
-                : featuredItem.name}
+                : getWeeklyDinnerDisplayName(featuredItem)}
             </h3>
 
             {featuredItem.description && (
@@ -196,15 +215,15 @@ export default function SpecialMeals() {
 
             <div className="my-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
               <div className="flex items-center gap-2 rounded-xl bg-[#f6f9fb] px-3 py-3 text-xs font-semibold text-[#294b64]">
-                <CalendarDays className="h-4 w-4 text-[#c66d1e]" />
+                <CalendarDays className="h-4 w-4 text-[#164f7c]" />
                 Order Thu–Sun
               </div>
               <div className="flex items-center gap-2 rounded-xl bg-[#f6f9fb] px-3 py-3 text-xs font-semibold text-[#294b64]">
-                <Clock3 className="h-4 w-4 text-[#c66d1e]" />
+                <Clock3 className="h-4 w-4 text-[#164f7c]" />
                 Pickup Wednesday
               </div>
               <div className="flex items-center gap-2 rounded-xl bg-[#f6f9fb] px-3 py-3 text-xs font-semibold text-[#294b64]">
-                <Users className="h-4 w-4 text-[#c66d1e]" />
+                <Users className="h-4 w-4 text-[#164f7c]" />
                 Dinners for 2 or 4
               </div>
             </div>
@@ -239,7 +258,9 @@ export default function SpecialMeals() {
                 )}
                 <div className="p-5">
                   <h4 className="font-heading text-xl font-semibold text-[#163f60]">
-                    {isCategoryIntroduction(item) ? "Dinner Details" : item.name}
+                    {isCategoryIntroduction(item)
+                      ? "Dinner Details"
+                      : getWeeklyDinnerDisplayName(item)}
                   </h4>
                   {item.description && (
                     <p className="mt-2 line-clamp-5 whitespace-pre-line text-sm leading-6 text-[#64748b]">
@@ -247,7 +268,7 @@ export default function SpecialMeals() {
                     </p>
                   )}
                   {item.priceLabel && (
-                    <p className="mt-4 font-bold text-[#c66d1e]">
+                    <p className="mt-4 font-bold text-[#164f7c]">
                       {item.priceLabel}
                     </p>
                   )}
