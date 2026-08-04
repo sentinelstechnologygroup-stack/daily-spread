@@ -17,6 +17,7 @@ import {
   fetchPaytronixMenu,
   formatCurrency,
   getOrderUrl,
+  compareMenuCategories,
 } from "../lib/paytronixMenuApi";
 
 const ALL_CATEGORY = "All";
@@ -37,7 +38,7 @@ const MENU_BENEFITS = [
 ];
 
 function normalizeFallbackMenu() {
-  const items = MENU_ITEMS.filter((item) => item.available).map((item) => ({
+  const items = MENU_ITEMS.filter((item) => item.available).map((item, index) => ({
     id: item.id,
     name: item.name,
     category: item.category,
@@ -50,6 +51,7 @@ function normalizeFallbackMenu() {
     image: item.image || "",
     optionGroups: [],
     tags: item.tags || [],
+    sourceIndex: index,
   }));
 
   return {
@@ -84,14 +86,25 @@ export default function MenuPage() {
   }
 
   const categories = useMemo(
-    () => [ALL_CATEGORY, ...menuData.categories],
+    () => [ALL_CATEGORY, ...[...menuData.categories].sort(compareMenuCategories)],
     [menuData.categories]
   );
 
-  const filteredItems = useMemo(() => {
-    if (activeCategory === ALL_CATEGORY) return menuData.items;
-    return menuData.items.filter((item) => item.category === activeCategory);
-  }, [activeCategory, menuData.items]);
+  const menuSections = useMemo(() => {
+    const sectionCategories =
+      activeCategory === ALL_CATEGORY
+        ? [...menuData.categories].sort(compareMenuCategories)
+        : [activeCategory];
+
+    return sectionCategories
+      .map((category) => ({
+        category,
+        items: menuData.items
+          .filter((item) => item.category === category)
+          .sort((a, b) => a.sourceIndex - b.sourceIndex),
+      }))
+      .filter((section) => section.items.length);
+  }, [activeCategory, menuData.categories, menuData.items]);
 
   const orderUrl = getOrderUrl();
 
@@ -193,12 +206,25 @@ export default function MenuPage() {
               Loading menu…
             </div>
           ) : (
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredItems.map((item) => (
-                <article
-                  key={item.id}
-                  className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden flex flex-col"
-                >
+            <div className="space-y-14">
+              {menuSections.map((section) => (
+                <section key={section.category} aria-labelledby={`menu-${section.category.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}`}>
+                  <div className="mb-6 flex items-center gap-4">
+                    <h3
+                      id={`menu-${section.category.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}`}
+                      className="font-heading text-2xl md:text-3xl font-semibold"
+                    >
+                      {section.category}
+                    </h3>
+                    <div className="h-px flex-1 bg-border" />
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {section.items.map((item) => (
+                      <article
+                        key={item.id}
+                        className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden flex flex-col"
+                      >
                   {item.image && (
                     <div className="aspect-[4/3] bg-muted overflow-hidden">
                       <img
@@ -286,12 +312,15 @@ export default function MenuPage() {
                       </Button>
                     </a>
                   </div>
-                </article>
+                      </article>
+                    ))}
+                  </div>
+                </section>
               ))}
             </div>
           )}
 
-          {!filteredItems.length && status !== "loading" && (
+          {!menuSections.length && status !== "loading" && (
             <div className="rounded-2xl border border-border bg-card p-8 text-center text-muted-foreground">
               No menu items are currently listed in this category.
             </div>

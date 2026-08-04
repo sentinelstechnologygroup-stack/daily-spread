@@ -1,8 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import galleryImages from "@/data/gallery";
+import { getGalleryAlt, getGalleryTitle } from "@/data/galleryTitles";
 
 const ALL_CATEGORY = "All";
+
+const PUBLIC_GALLERY_IMAGES = galleryImages
+  .filter((image) => image.category !== "Hero")
+  .filter((image, index, images) => {
+    const baseName = image.src.replace(/\.[^.]+$/, "");
+    return images.findIndex((candidate) => candidate.src.replace(/\.[^.]+$/, "") === baseName) === index;
+  });
 
 export default function Gallery() {
   const [active, setActive] = useState(ALL_CATEGORY);
@@ -13,13 +21,13 @@ export default function Gallery() {
   }, []);
 
   const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(galleryImages.map((image) => image.category))];
+    const uniqueCategories = [...new Set(PUBLIC_GALLERY_IMAGES.map((image) => image.category))];
     return [ALL_CATEGORY, ...uniqueCategories.sort((a, b) => a.localeCompare(b))];
   }, []);
 
   const filteredImages = useMemo(() => {
-    if (active === ALL_CATEGORY) return galleryImages;
-    return galleryImages.filter((image) => image.category === active);
+    if (active === ALL_CATEGORY) return PUBLIC_GALLERY_IMAGES;
+    return PUBLIC_GALLERY_IMAGES.filter((image) => image.category === active);
   }, [active]);
 
   const selectedImage =
@@ -75,11 +83,11 @@ export default function Gallery() {
           </span>
 
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
-            A Visual Feast
+            Gallery
           </h1>
 
           <p className="text-lg text-white/80 max-w-2xl mx-auto font-body">
-            Browse photos of our catering spreads, chef-prepared service, and desserts.
+            Explore food, catering, desserts, and events prepared by Daily Spread.
           </p>
         </div>
       </section>
@@ -118,7 +126,7 @@ export default function Gallery() {
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-secondary">
                     <img
                       src={image.src}
-                      alt={image.alt}
+                      alt={getGalleryAlt(image)}
                       className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
@@ -137,6 +145,11 @@ export default function Gallery() {
                     <span className="text-xs text-primary font-semibold uppercase tracking-wider">
                       {image.category}
                     </span>
+                    {getGalleryTitle(image) && (
+                      <h2 className="mt-1 font-heading text-base font-semibold text-foreground">
+                        {getGalleryTitle(image)}
+                      </h2>
+                    )}
                   </div>
                 </button>
               ))}
@@ -206,13 +219,13 @@ export default function Gallery() {
             <div className="w-full rounded-2xl overflow-hidden bg-black shadow-2xl border border-white/10">
               <img
                 src={selectedImage.src}
-                alt={selectedImage.alt}
+                alt={getGalleryAlt(selectedImage)}
                 className="w-full max-h-[76vh] object-contain"
               />
             </div>
 
             <p className="mt-4 text-center text-white/70 text-sm max-w-3xl">
-              {selectedImage.alt}
+              {getGalleryTitle(selectedImage) || selectedImage.alt}
             </p>
           </div>
         </div>

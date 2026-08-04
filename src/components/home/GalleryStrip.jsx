@@ -3,7 +3,10 @@ import SectionHeading from "../shared/SectionHeading";
 import ImageGalleryStrip from "../shared/ImageGalleryStrip";
 import galleryImages from "../../data/gallery";
 
-const GALLERY_IMAGES = galleryImages.slice(0, 8);
+const GALLERY_IMAGES = [
+  ...galleryImages.filter((image) => image.category === "Catering").slice(44, 48),
+  ...galleryImages.filter((image) => image.category === "Desserts").slice(12, 16),
+];
 
 export default function GalleryStrip() {
   return (

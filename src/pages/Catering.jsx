@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "../components/shared/SectionHeading";
 import galleryImages from "../data/gallery";
+import { fetchPaytronixMenu } from "../lib/paytronixMenuApi";
 
 const CATERING_IMAGES = galleryImages.filter((image) => image.category === "Catering");
 const CATERING_HERO = "/images/hero/catering-hero.png";
+const CATERING_MENU_CATEGORY_PATTERN = /^(catering|catering menu|catering selections)$/i;
 
 const CUISINES = [
   {
@@ -34,9 +36,30 @@ const CUISINES = [
 ];
 
 export default function Catering() {
+  const [liveMenu, setLiveMenu] = useState({ items: [] });
+
   useEffect(() => {
     document.title = "Catering | Daily Spread — Event & Corporate Catering in Cedar Park, TX";
+
+    let active = true;
+    fetchPaytronixMenu()
+      .then((menu) => {
+        if (active) setLiveMenu(menu);
+      })
+      .catch((error) => {
+        console.error("Unable to load the catering menu", error);
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
+
+  const liveCateringItems = useMemo(
+    () =>
+      liveMenu.items.filter((item) => CATERING_MENU_CATEGORY_PATTERN.test(item.category)),
+    [liveMenu.items]
+  );
 
   return (
     <>
@@ -104,6 +127,31 @@ export default function Catering() {
           </div>
         </div>
       </section>
+
+      {!!liveCateringItems.length && (
+        <section className="py-20 md:py-28 bg-[#eef5fa]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionHeading
+              eyebrow="Sample Catering Menu"
+              title="Current Catering Selections"
+              description="Selections may vary. Contact Daily Spread to build a menu for your event."
+            />
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {liveCateringItems.map((item) => (
+                <article key={item.id} className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+                  <h3 className="font-heading text-xl font-semibold mb-3">{item.name}</h3>
+                  {item.description && (
+                    <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                      {item.description}
+                    </p>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="py-20 md:py-28 bg-secondary/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import galleryImages from "../../data/gallery";
+import { getOrderUrl } from "../../lib/paytronixMenuApi";
 
 const FOOD_IMAGE =
   galleryImages.find((image) => image.category === "Desserts")?.src ||
   galleryImages.find((image) => image.category === "Catering")?.src;
-
-const ORDER_URL = "https://www.opendining.net/menu/53d035ebf61e46461f212cab";
 
 export default function MenuPreview() {
   return (
@@ -34,7 +33,7 @@ export default function MenuPreview() {
                   <Eye className="w-4 h-4 mr-2" /> View Menu
                 </Button>
               </Link>
-              <a href={ORDER_URL} target="_blank" rel="noopener noreferrer">
+              <a href={getOrderUrl()} target="_blank" rel="noopener noreferrer">
                 <Button size="lg" variant="outline" className="font-semibold px-7">
                   Order Now <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>

@@ -3,11 +3,27 @@ const DEFAULT_RESTAURANT_ID = "53d035ebf61e46461f212cab";
 const DEFAULT_PUBLIC_KEY = "49ace91d8c17daf4d13e61c05883ff3edbd02d1b";
 const DEFAULT_ORDER_URL = "https://menu-13717.orderexperience.net/53d035ebf61e46461f212cab/menu";
 
+const env = import.meta.env || {};
+
+const PRIVATE_CATEGORY_PATTERNS = [
+  /^special events?$/i,
+  /\b(private|customer)\s+(invoice|order)s?\b/i,
+  /\bcatering\s+invoices?\b/i,
+  /\binvoices?\b/i,
+];
+
+const PRIVATE_ITEM_PATTERNS = [
+  /\binvoices?\b/i,
+  /\bprivate\s+(customer\s+)?orders?\b/i,
+];
+
+const LAST_CATEGORY_PATTERNS = [/^gift cards?$/i];
+
 export const PAYTRONIX_CONFIG = {
-  apiBaseUrl: import.meta.env.VITE_PAYTRONIX_API_BASE_URL || DEFAULT_API_BASE_URL,
-  restaurantId: import.meta.env.VITE_PAYTRONIX_RESTAURANT_ID || DEFAULT_RESTAURANT_ID,
-  publicKey: import.meta.env.VITE_PAYTRONIX_PUBLIC_KEY || DEFAULT_PUBLIC_KEY,
-  orderUrl: import.meta.env.VITE_PAYTRONIX_ORDER_URL || DEFAULT_ORDER_URL,
+  apiBaseUrl: env.VITE_PAYTRONIX_API_BASE_URL || DEFAULT_API_BASE_URL,
+  restaurantId: env.VITE_PAYTRONIX_RESTAURANT_ID || DEFAULT_RESTAURANT_ID,
+  publicKey: env.VITE_PAYTRONIX_PUBLIC_KEY || DEFAULT_PUBLIC_KEY,
+  orderUrl: env.VITE_PAYTRONIX_ORDER_URL || DEFAULT_ORDER_URL,
 };
 
 export function getOrderUrl() {
@@ -24,6 +40,7 @@ export function getMenuEndpoint() {
 export async function fetchPaytronixMenu() {
   const response = await fetch(getMenuEndpoint(), {
     method: "GET",
+    cache: "no-store",
     headers: { Accept: "application/json" },
   });
 
@@ -54,15 +71,40 @@ export function normalizePaytronixMenu(data) {
         image: getPrimaryImage(item),
         optionGroups: normalizeOptionGroups(item.option_groups),
         orderType: item.order_type || "both",
+        canOrder: item.can_order !== false,
+        isSoldOut: Boolean(item.is_sold_out),
+        dates: Array.isArray(item.dates) ? item.dates : [],
         tags: getTags(item),
+        sourceIndex: index,
       };
-    });
+    })
+    .filter(isPublicMenuItem);
 
-  const categories = Array.from(new Set(items.map((item) => item.category))).sort((a, b) =>
-    a.localeCompare(b)
+  const categories = Array.from(new Set(items.map((item) => item.category))).sort(
+    compareMenuCategories
   );
 
   return { items, categories };
+}
+
+export function isPublicMenuCategory(category) {
+  const name = cleanText(category);
+  return Boolean(name) && !PRIVATE_CATEGORY_PATTERNS.some((pattern) => pattern.test(name));
+}
+
+export function isPublicMenuItem(item) {
+  return (
+    isPublicMenuCategory(item.category) &&
+    !PRIVATE_ITEM_PATTERNS.some((pattern) => pattern.test(cleanText(item.name)))
+  );
+}
+
+export function compareMenuCategories(a, b) {
+  const aLast = LAST_CATEGORY_PATTERNS.some((pattern) => pattern.test(a));
+  const bLast = LAST_CATEGORY_PATTERNS.some((pattern) => pattern.test(b));
+
+  if (aLast !== bLast) return aLast ? 1 : -1;
+  return a.localeCompare(b, undefined, { sensitivity: "base" });
 }
 
 function normalizePrices(prices) {
@@ -75,7 +117,7 @@ function normalizePrices(prices) {
       isDefault: Boolean(price?.is_default),
       unitCount: price?.unit_count || 1,
     }))
-    .filter((price) => Number.isFinite(price.price));
+    .filter((price) => Number.isFinite(price.price) && price.price > 0);
 }
 
 function normalizeOptionGroups(groups) {
@@ -103,9 +145,45 @@ function getPrimaryImage(item) {
     ...(Array.isArray(item.images) ? item.images : []),
     item.featured_image,
     item.image_url,
+    item.image,
+    item.photo,
+    item.photo_url,
+    item.thumbnail,
   ];
 
-  return candidates.find((url) => typeof url === "string" && url.trim().startsWith("http")) || "";
+  for (const candidate of candidates) {
+    const url = getImageUrl(candidate);
+    if (url) return url;
+  }
+
+  return "";
+}
+
+function getImageUrl(candidate) {
+  if (typeof candidate === "string") {
+    const value = candidate.trim();
+    return /^(https?:\/\/|\/)/i.test(value) ? value : "";
+  }
+
+  if (!candidate || typeof candidate !== "object") return "";
+
+  const nestedCandidates = [
+    candidate.url,
+    candidate.secure_url,
+    candidate.src,
+    candidate.path,
+    candidate.original,
+    candidate.large,
+    candidate.medium,
+    candidate.image_url,
+  ];
+
+  for (const nestedCandidate of nestedCandidates) {
+    const url = getImageUrl(nestedCandidate);
+    if (url) return url;
+  }
+
+  return "";
 }
 
 function getPriceLabel(prices) {

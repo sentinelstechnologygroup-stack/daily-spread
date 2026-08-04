@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Clock, ExternalLink, Facebook, Mail, MapPin, Phone } from "lucide-react";
 import SectionHeading from "../components/shared/SectionHeading";
+import { getOrderUrl } from "../lib/paytronixMenuApi";
 
 const ADDRESS = "1075 North Lakeline Blvd, Suite 101, Cedar Park, TX 78613";
 const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS)}`;
 const MAP_URL = `https://www.google.com/maps?q=${encodeURIComponent(`Daily Spread, ${ADDRESS}`)}&output=embed`;
-const ORDER_URL = "https://www.opendining.net/menu/53d035ebf61e46461f212cab";
 
 export default function Contact() {
   useEffect(() => {
@@ -98,7 +98,7 @@ export default function Contact() {
             <div>
               <SectionHeading eyebrow="Quick Links" title="Orders & Catering" centered={false} />
               <div className="space-y-4">
-                <a href={ORDER_URL} target="_blank" rel="noopener noreferrer" className="block">
+                <a href={getOrderUrl()} target="_blank" rel="noopener noreferrer" className="block">
                   <div className="bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/20 transition-all">
                     <h3 className="font-heading text-lg font-semibold mb-1">Order Now</h3>
                     <p className="text-sm text-muted-foreground">View current menu selections and place an order online.</p>
