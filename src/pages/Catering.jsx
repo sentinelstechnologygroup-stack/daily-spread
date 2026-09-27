@@ -1,13 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "../components/shared/SectionHeading";
 import galleryImages from "../data/gallery";
-import { fetchPaytronixMenu } from "../lib/paytronixMenuApi";
 import { CONCIERGE_MENU } from "../data/conciergeMenu";
 
 const CATERING_IMAGES = galleryImages.filter((image) => image.category === "Catering");
 const CATERING_HERO = "/images/hero/catering-hero.png";
-const CATERING_MENU_CATEGORY_PATTERN = /^(catering|catering services|catering menu|catering selections|concierge corporate catering)$/i;
 const CONCIERGE_IMAGES = [
   "/images/concierge/corporate-catering.png",
   "/images/concierge/catering-spread.png",
@@ -59,30 +56,7 @@ const CUISINES = [
 ];
 
 export default function Catering() {
-  const [liveMenu, setLiveMenu] = useState({ items: [] });
-
-  useEffect(() => {
-    document.title = "Catering | Daily Spread — Event & Corporate Catering in Cedar Park, TX";
-
-    let active = true;
-    fetchPaytronixMenu()
-      .then((menu) => {
-        if (active) setLiveMenu(menu);
-      })
-      .catch((error) => {
-        console.error("Unable to load the catering menu", error);
-      });
-
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  const liveCateringItems = useMemo(
-    () =>
-      liveMenu.items.filter((item) => CATERING_MENU_CATEGORY_PATTERN.test(item.category)),
-    [liveMenu.items]
-  );
+  document.title = "Catering | Daily Spread — Event & Corporate Catering in Cedar Park, TX";
 
   return (
     <>
@@ -176,48 +150,6 @@ export default function Catering() {
         </div>
       </section>
 
-      <section className="py-20 md:py-28 bg-[#f8f4ed]" id="corporate-concierge-details">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Corporate Catering Concierge"
-            title="A reliable meal partner for busy teams"
-            description="For offices with 25 or more employees, recurring meetings, or multiple locations, Daily Spread can help plan the menu, coordinate vendors, and keep delivery details moving."
-          />
-          <div className="grid md:grid-cols-3 gap-6">
-            {CONCIERGE_HIGHLIGHTS.map((highlight) => (
-              <article key={highlight.title} className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-                <h3 className="font-heading text-xl font-semibold mb-3">{highlight.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{highlight.text}</p>
-              </article>
-            ))}
-          </div>
-          <div className="mt-8 rounded-2xl border border-primary/20 bg-background p-6 md:p-8">
-            <h3 className="font-heading text-2xl font-semibold mb-3">Build a menu around your meeting</h3>
-            <p className="text-muted-foreground leading-relaxed mb-5">Menus rotate seasonally. Vegetarian and gluten-free accommodations are available by request. Most events need at least three business days' notice, and larger events are best planned a week ahead.</p>
-            <a href="mailto:orders@daily-spread.com?subject=Corporate Catering Concierge Inquiry" className="inline-flex items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90">Request a corporate catering quote</a>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28 bg-background" id="concierge-menu">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            eyebrow="Concierge Menu"
-            title="A flexible menu for the whole workday"
-            description="The concierge menu rotates quarterly so teams have variety while dependable favorites stay in the mix. Ask us to build a menu around your headcount, timing, dietary needs, and budget."
-          />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CONCIERGE_MENU.slice(0, 6).map((category) => (
-              <article key={category.title} className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-                <h3 className="font-heading text-xl font-semibold mb-3">{category.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{category.items.map(([name]) => name).join(", ")}</p>
-              </article>
-            ))}
-          </div>
-          <p className="mt-8 text-center text-sm text-muted-foreground">Ten-guest minimum. Vegetarian and gluten-free accommodations are available by request. Delivery, service, and outside-vendor coordination are quoted with your event.</p>
-        </div>
-      </section>
-
       {!!CONCIERGE_MENU.length && (
         <section className="py-20 md:py-28 bg-[#eef5fa]" id="live-concierge-selections">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -232,31 +164,6 @@ export default function Catering() {
                   <img src={category.image} alt={`${category.title} catering`} className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" />
                   <div className="p-6"><h3 className="font-heading text-xl font-semibold mb-2">{category.title}</h3><p className="text-sm text-muted-foreground">{category.items.map(([name]) => name).join(", ")}</p><span className="mt-4 inline-block text-sm font-semibold text-primary">View selections →</span></div>
                 </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {!!liveCateringItems.length && (
-        <section className="py-20 md:py-28 bg-[#eef5fa]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <SectionHeading
-              eyebrow="Sample Catering Menu"
-              title="Current Catering Selections"
-              description="Selections may vary. Contact Daily Spread to build a menu for your event."
-            />
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {liveCateringItems.map((item) => (
-                <article key={item.id} className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-                  <h3 className="font-heading text-xl font-semibold mb-3">{item.name}</h3>
-                  {item.description && (
-                    <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
-                      {item.description}
-                    </p>
-                  )}
-                </article>
               ))}
             </div>
           </div>
