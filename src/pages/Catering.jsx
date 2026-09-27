@@ -95,9 +95,9 @@ export default function Catering() {
               <p className="text-muted-foreground leading-relaxed mb-6">Daily Spread provides menu selections for office meetings, team meals, and large events. Vegetarian and gluten-free accommodations are available by request, and selections rotate quarterly for seasonal variety.</p>
               <a href="#live-concierge-selections" className="inline-flex items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90">Explore concierge selections</a>
             </div>
-            <div className="grid sm:grid-cols-3 gap-4">
+            <div className="grid gap-4">
               {[
-                { title: "Notice", text: "10–25 guests: minimum three business days. 26+ guests: minimum one week." },
+                { title: "Scheduling", text: "10–25 guests: minimum three business days. 26+ guests: minimum one week." },
                 { title: "Large events", text: "Events for 100+ guests are subject to availability; earlier planning is strongly encouraged." },
                 { title: "Ordering", text: "Order concierge selections by email at Orders@Daily-Spread.com." },
               ].map((highlight) => (
@@ -110,12 +110,6 @@ export default function Catering() {
           </div>
         </div>
       </section>
-
-      <div className="flex justify-center bg-[#f8f4ed] px-4 pb-10">
-        <a href="mailto:orders@daily-spread.com?subject=Catering Inquiry">
-          <Button size="lg" className="font-semibold px-7">Request Catering</Button>
-        </a>
-      </div>
 
       <section className="py-20 md:py-28 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -156,10 +150,13 @@ export default function Catering() {
         </div>
       </section>
 
-      <div className="flex justify-center bg-background px-4 pb-10">
-        <a href="#live-concierge-selections">
-          <Button size="lg" variant="outline" className="font-semibold px-7">Build Your Event Menu</Button>
-        </a>
+      <div className="bg-background px-4 pb-12">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-6 rounded-2xl border border-primary/20 bg-primary/5 px-6 py-5 shadow-sm sm:px-8">
+          <p className="font-heading text-lg font-semibold">Ready to choose your menu?</p>
+          <a href="#live-concierge-selections" className="shrink-0">
+            <Button size="lg" className="font-semibold px-7">Build Your Event Menu</Button>
+          </a>
+        </div>
       </div>
 
       {!!CONCIERGE_MENU.length && (
@@ -172,9 +169,9 @@ export default function Catering() {
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {CONCIERGE_MENU.map((category) => (
-                <a key={category.slug} href={`/catering/concierge/${category.slug}`} className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                <a key={category.slug} href={`/catering/concierge/${category.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-md">
                   <img src={category.image} alt={`${category.title} catering`} className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" />
-                  <div className="p-6"><h3 className="font-heading text-xl font-semibold mb-2">{category.title}</h3><p className="text-sm text-muted-foreground">{category.items.map(([name]) => name).join(", ")}</p><span className="mt-4 inline-block text-sm font-semibold text-primary">View selections →</span></div>
+                  <div className="flex flex-1 flex-col p-6"><h3 className="font-heading text-xl font-semibold mb-2">{category.title}</h3><p className="text-sm text-muted-foreground">{category.items.map(([name]) => name).join(", ")}</p><span className="mt-auto pt-6 text-sm font-semibold text-primary">View selections →</span></div>
                 </a>
               ))}
             </div>
@@ -182,10 +179,13 @@ export default function Catering() {
         </section>
       )}
 
-      <div className="flex justify-center bg-[#eef5fa] px-4 pb-10">
-        <a href="mailto:orders@daily-spread.com?subject=Catering Inquiry">
-          <Button size="lg" className="font-semibold px-7">Request a Concierge Quote</Button>
-        </a>
+      <div className="bg-[#eef5fa] px-4 pb-12">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-6 rounded-2xl border border-primary/20 bg-card px-6 py-5 shadow-sm sm:px-8">
+          <p className="font-heading text-lg font-semibold">Need help planning your event?</p>
+          <a href="mailto:orders@daily-spread.com?subject=Catering Inquiry" className="shrink-0">
+            <Button size="lg" className="font-semibold px-7">Request a Concierge Quote</Button>
+          </a>
+        </div>
       </div>
 
       <section className="py-20 md:py-28 bg-secondary/40">
