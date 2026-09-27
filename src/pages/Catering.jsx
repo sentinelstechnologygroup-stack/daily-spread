@@ -14,12 +14,12 @@ const CONCIERGE_IMAGES = [
   "/images/concierge/fresh-ingredients.png",
 ];
 const CUISINE_IMAGES = [
-  "/images/concierge/catering-spread.png",
-  "/images/concierge/fresh-ingredients.png",
-  "/images/concierge/meal-for-two.png",
-  "/images/concierge/corporate-catering.png",
-  "/images/concierge/event-catering.png",
-  "/images/concierge/desserts.png",
+  "/images/concierge/italian-cuisine.png",
+  "/images/concierge/asian-cuisine.png",
+  "/images/concierge/peruvian-cuisine.png",
+  "/images/concierge/mexican-cuisine.png",
+  "/images/concierge/american-cuisine.png",
+  "/images/concierge/custom-menus.png",
 ];
 
 const CONCIERGE_HIGHLIGHTS = [
@@ -99,7 +99,7 @@ export default function Catering() {
               {[
                 { title: "Notice", text: "10–25 guests: minimum three business days. 26+ guests: minimum one week." },
                 { title: "Large events", text: "Events for 100+ guests are subject to availability; earlier planning is strongly encouraged." },
-                { title: "Ordering", text: "Order concierge selections by email at dailyspreadjanda@gmail.com." },
+                { title: "Ordering", text: "Order concierge selections by email at Orders@Daily-Spread.com." },
               ].map((highlight) => (
                 <div key={highlight.title} className="rounded-xl border border-border bg-card p-4 shadow-sm">
                   <h3 className="font-heading text-lg font-semibold mb-2">{highlight.title}</h3>

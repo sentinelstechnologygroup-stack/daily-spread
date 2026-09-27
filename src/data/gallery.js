@@ -383,6 +383,16 @@ const galleryImages = [
     "alt": "Daily Spread Catering - 75"
   },
   {
+    "src": "/images/concierge/american-cuisine.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - American Cuisine"
+  },
+  {
+    "src": "/images/concierge/asian-cuisine.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Asian Cuisine"
+  },
+  {
     "src": "/images/concierge/buffet-setup.png",
     "category": "Concierge",
     "alt": "Daily Spread Concierge - Buffet Setup"
@@ -396,6 +406,11 @@ const galleryImages = [
     "src": "/images/concierge/corporate-catering.png",
     "category": "Concierge",
     "alt": "Daily Spread Concierge - Corporate Catering"
+  },
+  {
+    "src": "/images/concierge/custom-menus.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Custom Menus"
   },
   {
     "src": "/images/concierge/desserts.png",
@@ -423,9 +438,24 @@ const galleryImages = [
     "alt": "Daily Spread Concierge - Hero Chef"
   },
   {
+    "src": "/images/concierge/italian-cuisine.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Italian Cuisine"
+  },
+  {
     "src": "/images/concierge/meal-for-two.png",
     "category": "Concierge",
     "alt": "Daily Spread Concierge - Meal For Two"
+  },
+  {
+    "src": "/images/concierge/mexican-cuisine.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Mexican Cuisine"
+  },
+  {
+    "src": "/images/concierge/peruvian-cuisine.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Peruvian Cuisine"
   },
   {
     "src": "/images/desserts/01.webp",
