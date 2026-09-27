@@ -257,11 +257,11 @@ export default function SpecialMeals() {
                   />
                 )}
                 <div className="p-5">
-                  <h4 className="font-heading text-xl font-semibold text-[#163f60]">
+                  <h3 className="font-heading text-xl font-semibold text-[#163f60]">
                     {isCategoryIntroduction(item)
                       ? "Dinner Details"
                       : getWeeklyDinnerDisplayName(item)}
-                  </h4>
+                  </h3>
                   {item.description && (
                     <p className="mt-2 line-clamp-5 whitespace-pre-line text-sm leading-6 text-[#64748b]">
                       {item.description}

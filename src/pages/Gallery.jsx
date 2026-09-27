@@ -86,7 +86,7 @@ export default function Gallery() {
             Gallery
           </h1>
 
-          <p className="text-lg text-white/80 max-w-2xl mx-auto font-body">
+          <p className="text-lg text-white max-w-2xl mx-auto font-body">
             Explore food, catering, desserts, and events prepared by Daily Spread.
           </p>
         </div>

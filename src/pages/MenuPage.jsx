@@ -127,7 +127,7 @@ export default function MenuPage() {
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
             Daily Spread Menu
           </h1>
-          <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto font-body">
+          <p className="text-lg md:text-xl text-white max-w-3xl mx-auto font-body">
             Browse our current menu of chef-prepared meals, sides, bakery items,
             and catering selections.
           </p>

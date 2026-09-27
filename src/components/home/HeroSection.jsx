@@ -27,7 +27,7 @@ export default function HeroSection() {
           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-bold text-white leading-[1.1] mb-6">
             Catering &<br />Chef-Prepared<br />Meals Made Simple
           </h1>
-          <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 font-body max-w-md">
+          <p className="text-lg md:text-xl text-white leading-relaxed mb-8 font-body max-w-md">
             Daily Spread brings fresh, chef-prepared meals and catering options to gatherings, families, offices, and special occasions.
           </p>
           <div className="flex flex-wrap gap-4">

@@ -14,14 +14,14 @@ export default function Footer() {
               alt="Daily Spread logo"
               className="h-16 w-auto mb-4"
             />
-            <p className="text-sm opacity-70 leading-relaxed">
+            <p className="text-sm opacity-90 leading-relaxed">
               Chef-prepared meals and catering for gatherings, families, offices, and special occasions in Cedar Park, Texas.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading text-lg mb-4">Quick Links</h4>
+            <h2 className="font-heading text-lg mb-4">Quick Links</h2>
             <ul className="space-y-2.5 text-sm">
               {[
                 { label: "Home", path: "/" },
@@ -32,7 +32,7 @@ export default function Footer() {
                 { label: "Contact", path: "/contact" },
               ].map((l) => (
                 <li key={l.path}>
-                  <Link to={l.path} className="opacity-70 hover:opacity-100 hover:text-primary transition-all">
+                  <Link to={l.path} className="opacity-90 hover:opacity-100 hover:text-primary transition-all">
                     {l.label}
                   </Link>
                 </li>
@@ -42,25 +42,25 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="font-heading text-lg mb-4">Contact Us</h4>
+            <h2 className="font-heading text-lg mb-4">Contact Us</h2>
             <ul className="space-y-3 text-sm">
               <li>
-                <a href="tel:5128153540" className="flex items-start gap-2.5 opacity-70 hover:opacity-100 transition-opacity">
+                <a href="tel:5128153540" className="flex items-start gap-2.5 opacity-90 hover:opacity-100 transition-opacity">
                   <Phone className="w-4 h-4 mt-0.5 shrink-0" />
                   (512) 815-3540
                 </a>
               </li>
               <li>
-                <a href="mailto:orders@daily-spread.com" className="flex items-start gap-2.5 opacity-70 hover:opacity-100 transition-opacity">
+                <a href="mailto:orders@daily-spread.com" className="flex items-start gap-2.5 opacity-90 hover:opacity-100 transition-opacity">
                   <Mail className="w-4 h-4 mt-0.5 shrink-0" />
                   orders@daily-spread.com
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 opacity-70">
+              <li className="flex items-start gap-2.5 opacity-90">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
                 <span>1075 North Lakeline Blvd, Suite 101<br />Cedar Park, Texas 78613</span>
               </li>
-              <li className="flex items-start gap-2.5 opacity-70">
+              <li className="flex items-start gap-2.5 opacity-90">
                 <Clock className="w-4 h-4 mt-0.5 shrink-0" />
                 Mon–Fri: 8am to 6pm
               </li>
@@ -69,12 +69,12 @@ export default function Footer() {
 
           {/* Social / Order */}
           <div>
-            <h4 className="font-heading text-lg mb-4">Follow & Order</h4>
+            <h2 className="font-heading text-lg mb-4">Follow & Order</h2>
             <a
               href="https://www.facebook.com/dailyspreadmeals/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm opacity-70 hover:opacity-100 hover:text-primary transition-all mb-4"
+              className="inline-flex items-center gap-2 text-sm opacity-90 hover:opacity-100 hover:text-primary transition-all mb-4"
             >
               <Facebook className="w-5 h-5" /> Facebook
             </a>
@@ -91,7 +91,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 text-center text-xs opacity-50">
+        <div className="mt-12 pt-8 border-t border-white/10 text-center text-xs opacity-80">
           © {new Date().getFullYear()} Daily Spread. All rights reserved. Cedar Park, Texas.
         </div>
       </div>

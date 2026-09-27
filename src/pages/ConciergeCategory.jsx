@@ -42,7 +42,7 @@ export default function ConciergeCategory() {
         <div className="relative z-10 max-w-3xl mx-auto px-4 py-20 text-white">
           <span className="text-xs font-semibold tracking-[0.25em] uppercase text-primary-foreground/80">Corporate Catering Concierge</span>
           <h1 className="font-heading text-4xl md:text-5xl font-bold mt-4">{category.title}</h1>
-          <p className="mt-5 text-white/85">Chef-prepared selections for office meetings, team meals, and special events.</p>
+          <p className="mt-5 text-white">Chef-prepared selections for office meetings, team meals, and special events.</p>
         </div>
       </section>
       <section className="py-20 bg-[#eef5fa]">
