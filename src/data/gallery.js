@@ -383,19 +383,49 @@ const galleryImages = [
     "alt": "Daily Spread Catering - 75"
   },
   {
-    "src": "/images/catering/76.webp",
-    "category": "Catering",
-    "alt": "Daily Spread Catering - 76"
+    "src": "/images/concierge/buffet-setup.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Buffet Setup"
   },
   {
-    "src": "/images/catering/77.webp",
-    "category": "Catering",
-    "alt": "Daily Spread Catering - 77"
+    "src": "/images/concierge/catering-spread.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Catering Spread"
   },
   {
-    "src": "/images/catering/78.webp",
-    "category": "Catering",
-    "alt": "Daily Spread Catering - 78"
+    "src": "/images/concierge/corporate-catering.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Corporate Catering"
+  },
+  {
+    "src": "/images/concierge/desserts.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Desserts"
+  },
+  {
+    "src": "/images/concierge/event-catering.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Event Catering"
+  },
+  {
+    "src": "/images/concierge/family-meal.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Family Meal"
+  },
+  {
+    "src": "/images/concierge/fresh-ingredients.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Fresh Ingredients"
+  },
+  {
+    "src": "/images/concierge/hero-chef.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Hero Chef"
+  },
+  {
+    "src": "/images/concierge/meal-for-two.png",
+    "category": "Concierge",
+    "alt": "Daily Spread Concierge - Meal For Two"
   },
   {
     "src": "/images/desserts/01.webp",
