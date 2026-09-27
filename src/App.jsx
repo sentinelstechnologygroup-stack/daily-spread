@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import MenuPage from './pages/MenuPage';
 import Catering from './pages/Catering';
+import ConciergeCategory from './pages/ConciergeCategory';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 
@@ -22,7 +23,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/menu" element={<MenuPage />} />
-            <Route path="/catering" element={<Catering />} />
+          <Route path="/catering" element={<Catering />} />
+          <Route path="/catering/concierge/:categorySlug" element={<ConciergeCategory />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
           </Route>

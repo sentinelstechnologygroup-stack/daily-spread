@@ -3,23 +3,11 @@ import { Button } from "@/components/ui/button";
 import SectionHeading from "../components/shared/SectionHeading";
 import galleryImages from "../data/gallery";
 import { fetchPaytronixMenu } from "../lib/paytronixMenuApi";
+import { CONCIERGE_MENU } from "../data/conciergeMenu";
 
 const CATERING_IMAGES = galleryImages.filter((image) => image.category === "Catering");
 const CATERING_HERO = "/images/hero/catering-hero.png";
 const CATERING_MENU_CATEGORY_PATTERN = /^(catering|catering services|catering menu|catering selections|concierge corporate catering)$/i;
-const CONCIERGE_CATEGORY_NAMES = [
-  "CONCIERGE CORPORATE CATERING",
-  "Breakfast",
-  "Breakfast Sides",
-  "Lunch",
-  "Hot Corporate Entrees",
-  "Side - Choose with hot meals",
-  "Bread",
-  "Desserts",
-  "Beverages",
-  "Service",
-];
-const isConciergeCategory = (category) => CONCIERGE_CATEGORY_NAMES.some((name) => name.toLowerCase() === category.toLowerCase());
 const CONCIERGE_IMAGES = [
   "/images/concierge/corporate-catering.png",
   "/images/concierge/catering-spread.png",
@@ -41,15 +29,6 @@ const CONCIERGE_HIGHLIGHTS = [
   { title: "Breakfast meetings", text: "Breakfast taco bars, breakfast sandwiches, quiche, parfaits, and waffle or pancake stations." },
   { title: "Office lunches", text: "Box lunches, sandwich and wrap trays, taco bars, salads, hot entrees, and sides for team meals." },
   { title: "Concierge coordination", text: "We can coordinate outside restaurant and caterer orders for multi-location meetings, with delivery and service support quoted for your event." },
-];
-
-const CONCIERGE_MENU = [
-  { title: "Breakfast", text: "Breakfast taco bars, breakfast sandwiches, quiche, parfaits, seasonal fruit, and waffle or pancake stations." },
-  { title: "Lunch", text: "Box lunches, sandwich and wrap trays, sliders, taco bars, salads, baked potato bars, and cookies." },
-  { title: "Hot entrees", text: "Chicken, beef, pork, salmon, Italian pasta, and fajita buffets with sides and bread." },
-  { title: "Sides and salads", text: "Rice, beans, potatoes, vegetables, mixed greens, Caesar salad, and seasonal selections." },
-  { title: "Desserts and beverages", text: "Dessert bites, cupcakes, cheesecakes, cookies, tea, lemonade, coffee, soda, and bottled water." },
-  { title: "Event service", text: "Disposables, buffet attendants, chafing systems, beverage service, rentals, and delivery can be included in your quote." },
 ];
 
 const CUISINES = [
@@ -104,20 +83,6 @@ export default function Catering() {
       liveMenu.items.filter((item) => CATERING_MENU_CATEGORY_PATTERN.test(item.category)),
     [liveMenu.items]
   );
-
-  const liveConciergeItems = useMemo(
-    () => liveMenu.items.filter((item) => isConciergeCategory(item.category)),
-    [liveMenu.items]
-  );
-
-  const liveConciergeGroups = useMemo(() => {
-    const groups = new Map();
-    liveConciergeItems.forEach((item) => {
-      if (!groups.has(item.category)) groups.set(item.category, []);
-      groups.get(item.category).push(item);
-    });
-    return [...groups.entries()];
-  }, [liveConciergeItems]);
 
   return (
     <>
@@ -238,10 +203,10 @@ export default function Catering() {
             description="The concierge menu rotates quarterly so teams have variety while dependable favorites stay in the mix. Ask us to build a menu around your headcount, timing, dietary needs, and budget."
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CONCIERGE_MENU.map((category) => (
+            {CONCIERGE_MENU.slice(0, 6).map((category) => (
               <article key={category.title} className="rounded-2xl border border-border bg-card p-6 shadow-sm">
                 <h3 className="font-heading text-xl font-semibold mb-3">{category.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{category.text}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{category.items.map(([name]) => name).join(", ")}</p>
               </article>
             ))}
           </div>
@@ -249,30 +214,20 @@ export default function Catering() {
         </div>
       </section>
 
-      {!!liveConciergeItems.length && (
+      {!!CONCIERGE_MENU.length && (
         <section className="py-20 md:py-28 bg-[#eef5fa]" id="live-concierge-selections">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeading
-              eyebrow="Updated from Open Dining"
-              title="Current concierge selections"
-              description="Stephanie can update these selections in Open Dining. The website refreshes the names, descriptions, and available images automatically; prices are intentionally omitted here."
+              eyebrow="Corporate Catering Concierge"
+              title="Build your event menu"
+              description="Explore breakfast, lunch, hot entrees, sides, desserts, beverages, and service selections for your next meeting or event."
             />
-            <div className="space-y-12">
-              {liveConciergeGroups.map(([category, items]) => (
-                <div key={category}>
-                  <h3 className="font-heading text-2xl font-semibold mb-5">{category}</h3>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {items.map((item) => (
-                      <article key={item.id} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-                        {item.image && <img src={item.image} alt={item.name} className="aspect-[4/3] w-full object-cover" loading="lazy" />}
-                        <div className="p-6">
-                          <h4 className="font-heading text-xl font-semibold mb-3">{item.name}</h4>
-                          {item.description && <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">{item.description}</p>}
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {CONCIERGE_MENU.map((category) => (
+                <a key={category.slug} href={`/catering/concierge/${category.slug}`} className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                  <img src={category.image} alt={`${category.title} catering`} className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" />
+                  <div className="p-6"><h3 className="font-heading text-xl font-semibold mb-2">{category.title}</h3><p className="text-sm text-muted-foreground">{category.items.map(([name]) => name).join(", ")}</p><span className="mt-4 inline-block text-sm font-semibold text-primary">View selections →</span></div>
+                </a>
               ))}
             </div>
           </div>
