@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "../components/shared/SectionHeading";
-import { conciergeCategoryBySlug } from "../data/conciergeMenu";
+import { conciergeCategoryBySlug, conciergeItemImages } from "../data/conciergeMenu";
 
 export default function ConciergeCategory() {
   const { categorySlug } = useParams();
@@ -29,7 +29,7 @@ export default function ConciergeCategory() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {category.items.map(([name, description]) => (
               <article key={name} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-                <img src={category.image} alt={`${name} catering`} className="aspect-[4/3] w-full object-cover" loading="lazy" />
+                <img src={conciergeItemImages[name] || category.image} alt={`${name} catering`} className="aspect-[4/3] w-full object-cover" loading="lazy" />
                 <div className="p-6"><h2 className="font-heading text-xl font-semibold mb-3">{name}</h2><p className="text-sm text-muted-foreground leading-relaxed">{description}</p></div>
               </article>
             ))}

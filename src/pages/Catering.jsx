@@ -117,12 +117,16 @@ export default function Catering() {
           <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 items-center">
             <div>
               <span className="inline-block text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-4 font-body">Corporate Catering Concierge</span>
-              <h2 className="font-heading text-3xl md:text-4xl font-semibold mb-4">One dependable partner for your office meal</h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">For teams of 25 or more, recurring meetings, or multiple locations, Daily Spread can coordinate menus, vendors, delivery, and service around your schedule.</p>
+              <h2 className="font-heading text-3xl md:text-4xl font-semibold mb-4">Corporate catering, planned around your meeting</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">Daily Spread provides menu selections for office meetings, team meals, and large events. Vegetarian and gluten-free accommodations are available by request, and selections rotate quarterly for seasonal variety.</p>
               <a href="#live-concierge-selections" className="inline-flex items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90">Explore concierge selections</a>
             </div>
             <div className="grid sm:grid-cols-3 gap-4">
-              {CONCIERGE_HIGHLIGHTS.map((highlight) => (
+              {[
+                { title: "Notice", text: "10–25 guests: minimum three business days. 26+ guests: minimum one week." },
+                { title: "Large events", text: "Events for 100+ guests are subject to availability; earlier planning is strongly encouraged." },
+                { title: "Ordering", text: "Order concierge selections by email at dailyspreadjanda@gmail.com." },
+              ].map((highlight) => (
                 <div key={highlight.title} className="rounded-xl border border-border bg-card p-4 shadow-sm">
                   <h3 className="font-heading text-lg font-semibold mb-2">{highlight.title}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">{highlight.text}</p>

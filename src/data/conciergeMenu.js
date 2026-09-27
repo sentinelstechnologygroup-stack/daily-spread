@@ -63,3 +63,35 @@ export const CONCIERGE_MENU = [
 ];
 
 export const conciergeCategoryBySlug = (slug) => CONCIERGE_MENU.find((category) => category.slug === slug);
+
+export const conciergeItemImages = {
+  "Breakfast Taco Bar": "/images/concierge/items/breakfast-taco-bar.png",
+  "Breakfast Tacos": "/images/concierge/items/breakfast-tacos.png",
+  "Mini Quiche": "/images/concierge/items/mini-quiche.png",
+  "Individual Quiche": "/images/concierge/items/individual-quiche.png",
+  "Biscuit Breakfast Sandwich": "/images/concierge/items/biscuit-breakfast-sandwich.png",
+  "Croissant Breakfast Sandwich": "/images/concierge/items/croissant-breakfast-sandwich.png",
+  "Yogurt, Fruit & Granola Parfait": "/images/concierge/items/yogurt-fruit-granola-parfait.png",
+  "Belgian Waffle or Pancake Bar": "/images/concierge/items/waffle-pancake-bar.png",
+  "Migas Breakfast": "/images/concierge/items/migas-breakfast.png",
+  "Texas Brunch Box": "/images/concierge/items/texas-brunch-box.png",
+  "Seasonal Fruit Tray": "/images/concierge/items/seasonal-fruit-tray.png",
+  "Breakfast Meat": "/images/concierge/items/breakfast-meat.png",
+  "Breakfast Breads": "/images/concierge/items/breakfast-breads.png",
+  "Assorted Sliders": "/images/concierge/items/assorted-sliders.png",
+  "Premium Sandwich & Wrap Tray": "/images/concierge/items/sandwich-wrap-tray.png",
+  "Box Lunch": "/images/concierge/items/box-lunch.png",
+  "Chicken": "/images/concierge/items/hot-corporate-entrees.png",
+  "Beef & Steak": "/images/concierge/items/hot-corporate-entrees.png",
+  "Pork": "/images/concierge/items/hot-corporate-entrees.png",
+  "Salmon": "/images/concierge/items/hot-corporate-entrees.png",
+  "Italian Pasta": "/images/concierge/items/hot-corporate-entrees.png",
+  "Chicken & Beef Fajita Buffet": "/images/concierge/items/hot-corporate-entrees.png",
+  "Potatoes, Rice & Beans": "/images/concierge/items/corporate-side-dishes.png",
+  "Vegetables & Salads": "/images/concierge/items/corporate-side-dishes.png",
+  "Additional Side": "/images/concierge/items/corporate-side-dishes.png",
+  "Bread Service": "/images/concierge/items/artisan-bread-service.png",
+  "Dessert Bites": "/images/concierge/items/dessert-bites-cheesecake.png",
+  "Beverage Service": "/images/concierge/items/beverages.png",
+  "Event Service": "/images/concierge/items/attended-buffet-service.png",
+};
