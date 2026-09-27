@@ -1,3 +1,5 @@
+import { fetchPaytronixMenu } from "../lib/paytronixMenuApi";
+
 export const CONCIERGE_MENU = [
   {
     title: "Breakfast",
@@ -63,6 +65,55 @@ export const CONCIERGE_MENU = [
 ];
 
 export const conciergeCategoryBySlug = (slug) => CONCIERGE_MENU.find((category) => category.slug === slug);
+
+const normalizeCategoryTitle = (value) => String(value || "")
+  .replace(/^concierge\s*[-:]?\s*/i, "")
+  .replace(/\s+/g, " ")
+  .trim()
+  .toLowerCase();
+
+const categoryKey = (value) => normalizeCategoryTitle(value)
+  .replace("side - choose with hot meals", "hot meal sides")
+  .replace(/[^a-z0-9]+/g, "-");
+
+export async function fetchConciergeMenu() {
+  const { items } = await fetchPaytronixMenu();
+  const liveCategories = new Map();
+
+  items
+    .filter((item) => /^concierge\s*[-:]/i.test(item.category))
+    .forEach((item) => {
+      const title = item.category.replace(/^concierge\s*[-:]?\s*/i, "").trim();
+      const key = categoryKey(title);
+      const entry = liveCategories.get(key) || { title, items: [] };
+      entry.items.push([item.name, item.description || "", item.image || ""]);
+      liveCategories.set(key, entry);
+    });
+
+  if (!liveCategories.size) return CONCIERGE_MENU;
+
+  const merged = [];
+  liveCategories.forEach((live, key) => {
+    const fallback = CONCIERGE_MENU.find((category) => categoryKey(category.title) === key);
+    merged.push({
+      ...(fallback || {}),
+      title: live.title,
+      slug: fallback?.slug || live.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+      image: fallback?.image || "",
+      items: live.items,
+    });
+  });
+
+  return CONCIERGE_MENU
+    .map((category) => merged.find((entry) => entry.slug === category.slug))
+    .filter(Boolean)
+    .concat(merged.filter((entry) => !CONCIERGE_MENU.some((category) => category.slug === entry.slug)));
+}
+
+export function getConciergeItemImage(item, fallback = "") {
+  if (Array.isArray(item) && item.length > 2) return item[2] || fallback;
+  return conciergeItemImages[item?.[0]] || fallback;
+}
 
 export const conciergeItemImages = {
   "Breakfast Taco Bar": "/images/concierge/items/breakfast-taco-bar.png",

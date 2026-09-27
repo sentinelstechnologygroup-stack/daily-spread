@@ -1,11 +1,33 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "../components/shared/SectionHeading";
-import { conciergeCategoryBySlug, conciergeItemImages } from "../data/conciergeMenu";
+import ImageComingSoon from "../components/shared/ImageComingSoon";
+import { CONCIERGE_MENU, fetchConciergeMenu, getConciergeItemImage } from "../data/conciergeMenu";
 
 export default function ConciergeCategory() {
   const { categorySlug } = useParams();
-  const category = conciergeCategoryBySlug(categorySlug);
+  const [menu, setMenu] = useState(CONCIERGE_MENU);
+
+  useEffect(() => {
+    let mounted = true;
+    const refresh = async () => {
+      try {
+        const liveMenu = await fetchConciergeMenu();
+        if (mounted && liveMenu.length) setMenu(liveMenu);
+      } catch {
+        // Keep the PDF-derived fallback when Open Dining is unavailable.
+      }
+    };
+    refresh();
+    const interval = window.setInterval(refresh, 60_000);
+    return () => {
+      mounted = false;
+      window.clearInterval(interval);
+    };
+  }, []);
+
+  const category = menu.find((entry) => entry.slug === categorySlug);
 
   if (!category) {
     return <section className="py-28 text-center"><h1 className="font-heading text-4xl mb-6">Catering category not found</h1><Link to="/catering"><Button>Back to catering</Button></Link></section>;
@@ -27,12 +49,16 @@ export default function ConciergeCategory() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading eyebrow={category.title} title="Choose your selections" description="Review the options below, then contact Daily Spread to plan your menu and event service." />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {category.items.map(([name, description]) => (
+            {category.items.map((item) => {
+              const [name, description] = item;
+              const image = getConciergeItemImage(item);
+              return (
               <article key={name} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-                <img src={conciergeItemImages[name] || category.image} alt={`${name} catering`} className="aspect-[4/3] w-full object-cover" loading="lazy" />
+                {image ? <img src={image} alt={`${name} catering`} className="aspect-[4/3] w-full object-cover" loading="lazy" /> : <ImageComingSoon />}
                 <div className="p-6"><h2 className="font-heading text-xl font-semibold mb-3">{name}</h2><p className="text-sm text-muted-foreground leading-relaxed">{description}</p></div>
               </article>
-            ))}
+              );
+            })}
           </div>
           <div className="mt-12 text-center"><a href="mailto:orders@daily-spread.com?subject=Corporate Catering Concierge Inquiry"><Button size="lg">Request a catering quote</Button></a></div>
         </div>

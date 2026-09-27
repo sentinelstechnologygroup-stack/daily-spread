@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import SectionHeading from "../components/shared/SectionHeading";
+import ImageComingSoon from "../components/shared/ImageComingSoon";
 import galleryImages from "../data/gallery";
-import { CONCIERGE_MENU } from "../data/conciergeMenu";
+import { CONCIERGE_MENU, fetchConciergeMenu, getConciergeItemImage } from "../data/conciergeMenu";
 
 const CATERING_IMAGES = galleryImages.filter((image) => image.category === "Catering");
 const CATERING_HERO = "/images/hero/catering-hero.png";
@@ -56,6 +58,26 @@ const CUISINES = [
 ];
 
 export default function Catering() {
+  const [conciergeMenu, setConciergeMenu] = useState(CONCIERGE_MENU);
+
+  useEffect(() => {
+    let mounted = true;
+    const refresh = async () => {
+      try {
+        const liveMenu = await fetchConciergeMenu();
+        if (mounted && liveMenu.length) setConciergeMenu(liveMenu);
+      } catch {
+        // Keep the PDF-derived fallback when Open Dining is unavailable.
+      }
+    };
+    refresh();
+    const interval = window.setInterval(refresh, 60_000);
+    return () => {
+      mounted = false;
+      window.clearInterval(interval);
+    };
+  }, []);
+
   document.title = "Catering | Daily Spread — Event & Corporate Catering in Cedar Park, TX";
 
   return (
@@ -159,7 +181,7 @@ export default function Catering() {
         </div>
       </div>
 
-      {!!CONCIERGE_MENU.length && (
+      {!!conciergeMenu.length && (
         <section className="py-20 md:py-28 bg-[#eef5fa]" id="live-concierge-selections">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeading
@@ -168,12 +190,15 @@ export default function Catering() {
               description="Explore breakfast, lunch, hot entrees, sides, desserts, beverages, and service selections for your next meeting or event."
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {CONCIERGE_MENU.map((category) => (
+              {conciergeMenu.map((category) => {
+                const categoryImage = category.image || getConciergeItemImage(category.items[0]);
+                return (
                 <a key={category.slug} href={`/catering/concierge/${category.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-                  <img src={category.image} alt={`${category.title} catering`} className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" />
+                  {categoryImage ? <img src={categoryImage} alt={`${category.title} catering`} className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" /> : <ImageComingSoon />}
                   <div className="flex flex-1 flex-col p-6"><h3 className="font-heading text-xl font-semibold mb-2">{category.title}</h3><p className="text-sm text-muted-foreground">{category.items.map(([name]) => name).join(", ")}</p><span className="mt-auto pt-6 text-sm font-semibold text-primary">View selections →</span></div>
                 </a>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
