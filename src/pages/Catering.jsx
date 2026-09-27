@@ -111,6 +111,12 @@ export default function Catering() {
         </div>
       </section>
 
+      <div className="flex justify-center bg-[#f8f4ed] px-4 pb-10">
+        <a href="mailto:orders@daily-spread.com?subject=Catering Inquiry">
+          <Button size="lg" className="font-semibold px-7">Request Catering</Button>
+        </a>
+      </div>
+
       <section className="py-20 md:py-28 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
@@ -150,6 +156,12 @@ export default function Catering() {
         </div>
       </section>
 
+      <div className="flex justify-center bg-background px-4 pb-10">
+        <a href="#live-concierge-selections">
+          <Button size="lg" variant="outline" className="font-semibold px-7">Build Your Event Menu</Button>
+        </a>
+      </div>
+
       {!!CONCIERGE_MENU.length && (
         <section className="py-20 md:py-28 bg-[#eef5fa]" id="live-concierge-selections">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -169,6 +181,12 @@ export default function Catering() {
           </div>
         </section>
       )}
+
+      <div className="flex justify-center bg-[#eef5fa] px-4 pb-10">
+        <a href="mailto:orders@daily-spread.com?subject=Catering Inquiry">
+          <Button size="lg" className="font-semibold px-7">Request a Concierge Quote</Button>
+        </a>
+      </div>
 
       <section className="py-20 md:py-28 bg-secondary/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
