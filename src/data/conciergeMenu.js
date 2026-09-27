@@ -95,23 +95,36 @@ export async function fetchConciergeMenu() {
   const merged = [];
   liveCategories.forEach((live, key) => {
     const fallback = CONCIERGE_MENU.find((category) => categoryKey(category.title) === key);
+    const liveIsCategorySummary = live.items.length === 1 && (
+      /selection/i.test(live.items[0][0]) ||
+      live.items[0][0].toLowerCase() === live.title.toLowerCase() ||
+      live.items[0][0].toLowerCase().includes(live.title.toLowerCase())
+    );
+    const items = liveIsCategorySummary && fallback?.items?.length
+      ? fallback.items
+      : live.items.map((item) => {
+        const fallbackItem = fallback?.items?.find(([name]) => name.toLowerCase() === item[0].toLowerCase());
+        return [item[0], item[1] || fallbackItem?.[1] || "", item[2] || ""];
+      });
     merged.push({
       ...(fallback || {}),
       title: live.title,
       slug: fallback?.slug || live.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
       image: fallback?.image || "",
-      items: live.items,
+      items,
     });
   });
 
+  // Keep the complete concierge navigation available while Open Dining categories
+  // are being populated. Configured categories use live rows; missing categories
+  // retain their PDF-derived item list until Open Dining provides that category.
   return CONCIERGE_MENU
-    .map((category) => merged.find((entry) => entry.slug === category.slug))
-    .filter(Boolean)
+    .map((category) => merged.find((entry) => entry.slug === category.slug) || category)
     .concat(merged.filter((entry) => !CONCIERGE_MENU.some((category) => category.slug === entry.slug)));
 }
 
 export function getConciergeItemImage(item, fallback = "") {
-  if (Array.isArray(item) && item.length > 2) return item[2] || fallback;
+  if (Array.isArray(item) && item.length > 2 && item[2]) return item[2];
   return conciergeItemImages[item?.[0]] || fallback;
 }
 
@@ -130,8 +143,10 @@ export const conciergeItemImages = {
   "Breakfast Meat": "/images/concierge/items/breakfast-meat.png",
   "Breakfast Breads": "/images/concierge/items/breakfast-breads.png",
   "Assorted Sliders": "/images/concierge/items/assorted-sliders.png",
+  "Classic Sandwich Tray": "/images/concierge/items/sandwich-wrap-tray.png",
   "Premium Sandwich & Wrap Tray": "/images/concierge/items/sandwich-wrap-tray.png",
   "Box Lunch": "/images/concierge/items/box-lunch.png",
+  "Baked Potato Bar": "/images/concierge/items/corporate-side-dishes.png",
   "Chicken": "/images/concierge/items/hot-corporate-entrees.png",
   "Beef & Steak": "/images/concierge/items/hot-corporate-entrees.png",
   "Pork": "/images/concierge/items/hot-corporate-entrees.png",
