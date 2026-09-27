@@ -102,7 +102,7 @@ export default function Catering() {
           <p className="text-lg text-white leading-relaxed mb-8 font-body max-w-3xl mx-auto">
             Daily Spread provides catering for business meals, family gatherings, celebrations, and special events.
           </p>
-          <a href="mailto:orders@daily-spread.com?subject=Catering Inquiry">
+          <a href="/contact?inquiry=catering">
             <Button size="lg" className="font-semibold px-7 text-base">Request Catering</Button>
           </a>
         </div>
@@ -207,7 +207,7 @@ export default function Catering() {
       <div className="bg-[#eef5fa] px-4 pb-12">
         <div className="mx-auto flex max-w-3xl items-center justify-between gap-6 rounded-2xl border border-primary/20 bg-card px-6 py-5 shadow-sm sm:px-8">
           <p className="font-heading text-lg font-semibold">Need help planning your event?</p>
-          <a href="mailto:orders@daily-spread.com?subject=Catering Inquiry" className="shrink-0">
+          <a href="/contact?inquiry=concierge" className="shrink-0">
             <Button size="lg" className="font-semibold px-7">Request a Concierge Quote</Button>
           </a>
         </div>
@@ -253,7 +253,7 @@ export default function Catering() {
             Contact Daily Spread to discuss catering availability and menu options.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="mailto:orders@daily-spread.com?subject=Catering Inquiry">
+            <a href="/contact?inquiry=catering">
               <Button size="lg" variant="secondary" className="font-semibold px-7">
                 Request Catering
               </Button>

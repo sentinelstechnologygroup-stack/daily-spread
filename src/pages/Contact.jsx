@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Clock, ExternalLink, Facebook, Mail, MapPin, Phone } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 import SectionHeading from "../components/shared/SectionHeading";
 import { getOrderUrl } from "../lib/paytronixMenuApi";
 
@@ -8,6 +9,13 @@ const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${enc
 const MAP_URL = `https://www.google.com/maps?q=${encodeURIComponent(`Daily Spread, ${ADDRESS}`)}&output=embed`;
 
 export default function Contact() {
+  const [searchParams] = useSearchParams();
+  const [inquiryType, setInquiryType] = useState(
+    searchParams.get("inquiry") === "concierge" ? "Corporate Concierge Catering" : "Catering Quote"
+  );
+  const [step, setStep] = useState(1);
+  const [contactInfo, setContactInfo] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
   useEffect(() => {
     document.title = "Contact | Daily Spread — Reach Us for Orders & Catering";
   }, []);
@@ -105,10 +113,10 @@ export default function Contact() {
                   </div>
                 </a>
 
-                <a href="mailto:orders@daily-spread.com?subject=Catering Inquiry" className="block">
+                <a href="#inquiry-form" className="block">
                   <div className="bg-card border border-border rounded-xl p-5 hover:shadow-md hover:border-primary/20 transition-all">
                     <h3 className="font-heading text-lg font-semibold mb-1">Request Catering</h3>
-                    <p className="text-sm text-muted-foreground">Email Daily Spread about your event and catering needs.</p>
+                    <p className="text-sm text-muted-foreground">Tell us about your event and get a tailored response.</p>
                   </div>
                 </a>
 
@@ -120,6 +128,94 @@ export default function Contact() {
                 </a>
               </div>
             </div>
+          </div>
+
+          <div id="inquiry-form" className="mt-16 rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8">
+            <SectionHeading
+              eyebrow="Start a Conversation"
+              title="Tell us about your event"
+              description="Answer a few quick questions and your email app will open with the details ready to send."
+              centered={false}
+            />
+            {submitted ? (
+              <div className="rounded-xl bg-primary/10 p-5 text-sm leading-relaxed text-foreground" role="status">
+                Your event details are ready in your email app. Send the message to complete your request.
+              </div>
+            ) : (
+              <form
+                className="grid gap-5 md:grid-cols-2"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  const form = new FormData(event.currentTarget);
+                  if (step === 1) {
+                    setContactInfo({ name: form.get("name"), phone: form.get("phone"), email: form.get("email") });
+                    setStep(2);
+                    return;
+                  }
+                  const details = [
+                    `Name: ${contactInfo.name}`,
+                    `Email: ${contactInfo.email}`,
+                    `Phone: ${contactInfo.phone}`,
+                    `Event date: ${form.get("eventDate") || "Not decided"}`,
+                    `Guest count: ${form.get("guests") || "Not decided"}`,
+                    `Service: ${form.get("service") || "Not specified"}`,
+                    "",
+                    `Event details: ${form.get("details") || "None provided"}`,
+                  ].join("\\n");
+                  const subject = `${inquiryType} — ${form.get("name")}`;
+                  window.location.href = `mailto:Orders@Daily-Spread.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(details)}`;
+                  setSubmitted(true);
+                }}
+              >
+                {step === 1 ? <>
+                  <div className="md:col-span-2 rounded-xl bg-primary/5 p-4 text-sm text-muted-foreground">Step 1 of 2: We’ll use these details to follow up on your request.</div>
+                  <label className="grid gap-2 text-sm font-semibold md:col-span-2">Your name
+                    <input name="name" type="text" autoComplete="name" required className="h-11 rounded-md border border-input bg-background px-3 font-normal" />
+                  </label>
+                  <label className="grid gap-2 text-sm font-semibold">Phone number
+                    <input name="phone" type="tel" autoComplete="tel" required className="h-11 rounded-md border border-input bg-background px-3 font-normal" />
+                  </label>
+                  <label className="grid gap-2 text-sm font-semibold">Email address
+                    <input name="email" type="email" autoComplete="email" required className="h-11 rounded-md border border-input bg-background px-3 font-normal" />
+                  </label>
+                </> : <>
+                  <div className="md:col-span-2 flex items-center justify-between rounded-xl bg-primary/5 p-4 text-sm">
+                    <span><strong>{contactInfo.name}</strong> · {contactInfo.phone} · {contactInfo.email}</span>
+                    <button type="button" onClick={() => setStep(1)} className="ml-4 min-h-8 font-semibold text-primary underline underline-offset-2">Edit</button>
+                  </div>
+                  <label className="grid gap-2 text-sm font-semibold">What can we help with?
+                    <select name="inquiryType" value={inquiryType} onChange={(event) => setInquiryType(event.target.value)} className="h-11 rounded-md border border-input bg-background px-3 font-normal" required>
+                      <option>Catering Quote</option>
+                      <option>Corporate Concierge Catering</option>
+                      <option>General Question</option>
+                    </select>
+                  </label>
+                  <label className="grid gap-2 text-sm font-semibold">Event date
+                    <input name="eventDate" type="date" className="h-11 rounded-md border border-input bg-background px-3 font-normal" />
+                  </label>
+                  <label className="grid gap-2 text-sm font-semibold">Estimated guests
+                    <input name="guests" type="number" min="1" inputMode="numeric" className="h-11 rounded-md border border-input bg-background px-3 font-normal" />
+                  </label>
+                  <label className="grid gap-2 text-sm font-semibold">Service preference
+                    <select name="service" className="h-11 rounded-md border border-input bg-background px-3 font-normal">
+                      <option value="">Choose one</option>
+                      <option>Delivery</option>
+                      <option>Buffet setup and service</option>
+                      <option>Pickup</option>
+                      <option>Not sure yet</option>
+                    </select>
+                  </label>
+                  <label className="grid gap-2 text-sm font-semibold md:col-span-2">Tell us about the menu or event
+                    <textarea name="details" rows="5" placeholder="Event location, menu ideas, dietary needs, timing, or anything else we should know" className="rounded-md border border-input bg-background px-3 py-3 font-normal" />
+                  </label>
+                </>}
+                <div className="md:col-span-2">
+                  <button type="submit" className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    {step === 1 ? "Continue" : "Continue to email"}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </section>

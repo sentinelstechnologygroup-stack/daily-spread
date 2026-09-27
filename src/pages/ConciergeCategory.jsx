@@ -60,7 +60,7 @@ export default function ConciergeCategory() {
               );
             })}
           </div>
-          <div className="mt-12 text-center"><a href="mailto:orders@daily-spread.com?subject=Corporate Catering Concierge Inquiry"><Button size="lg">Request a catering quote</Button></a></div>
+          <div className="mt-12 text-center"><a href="/contact?inquiry=concierge"><Button size="lg">Request a catering quote</Button></a></div>
         </div>
       </section>
     </>
