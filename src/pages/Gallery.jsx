@@ -72,7 +72,7 @@ export default function Gallery() {
           <img
             src="/images/hero/gallery-hero.png"
             alt="Daily Spread catering and food gallery"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-fill"
           />
           <div className="absolute inset-0 bg-foreground/70" />
         </div>

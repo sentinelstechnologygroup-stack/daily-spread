@@ -38,7 +38,7 @@ export default function ConciergeCategory() {
   return (
     <>
       <section className="relative min-h-[42vh] flex items-center justify-center text-center">
-        <div className="absolute inset-0 bg-foreground"><img src={category.image} alt={`${category.title} catering`} className="w-full h-full object-contain" /><div className="absolute inset-0 bg-foreground/65" /></div>
+        <div className="absolute inset-0 bg-foreground"><img src={category.image} alt={`${category.title} catering`} className="w-full h-full object-fill" /><div className="absolute inset-0 bg-foreground/65" /></div>
         <div className="relative z-10 max-w-3xl mx-auto px-4 py-20 text-white">
           <span className="text-xs font-semibold tracking-[0.25em] uppercase text-primary-foreground/80">Corporate Catering Concierge</span>
           <h1 className="font-heading text-4xl md:text-5xl font-bold mt-4">{category.title}</h1>

@@ -16,7 +16,7 @@ export default function About() {
           <img
             src={ABOUT_IMAGE}
             alt="Daily Spread chef-prepared meals"
-            className="w-full h-full object-contain bg-foreground"
+            className="w-full h-full object-fill bg-foreground"
           />
           <div className="absolute inset-0 bg-foreground/70" />
         </div>

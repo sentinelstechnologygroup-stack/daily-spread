@@ -115,7 +115,7 @@ export default function MenuPage() {
           <img
             src="/images/hero/menu-hero.png"
             alt="Daily Spread chef-prepared meals"
-            className="w-full h-full object-contain"
+            className="w-full h-full object-fill"
           />
           <div className="absolute inset-0 bg-foreground/70" />
         </div>

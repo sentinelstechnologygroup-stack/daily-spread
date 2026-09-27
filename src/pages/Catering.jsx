@@ -87,7 +87,7 @@ export default function Catering() {
           <img
             src={CATERING_HERO}
             alt="Daily Spread catering"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-fill"
           />
           <div className="absolute inset-0 bg-foreground/70" />
         </div>
