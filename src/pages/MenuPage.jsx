@@ -111,11 +111,11 @@ export default function MenuPage() {
   return (
     <>
       <section className="relative min-h-[55vh] flex items-center justify-center text-center">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-foreground">
           <img
             src="/images/hero/menu-hero.png"
             alt="Daily Spread chef-prepared meals"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
           <div className="absolute inset-0 bg-foreground/70" />
         </div>

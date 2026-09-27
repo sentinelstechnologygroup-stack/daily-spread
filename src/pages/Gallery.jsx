@@ -68,11 +68,11 @@ export default function Gallery() {
   return (
     <>
       <section className="relative min-h-[55vh] flex items-center justify-center text-center">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-foreground">
           <img
             src="/images/hero/gallery-hero.png"
             alt="Daily Spread catering and food gallery"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
           <div className="absolute inset-0 bg-foreground/70" />
         </div>
