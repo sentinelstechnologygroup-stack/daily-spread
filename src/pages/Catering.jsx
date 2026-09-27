@@ -121,7 +121,7 @@ export default function Catering() {
               {[
                 { title: "Scheduling", text: "10–25 guests: minimum three business days. 26+ guests: minimum one week." },
                 { title: "Large events", text: "Events for 100+ guests are subject to availability; earlier planning is strongly encouraged." },
-                { title: "Ordering", text: "Order concierge selections by email at Orders@Daily-Spread.com." },
+                { title: "Ordering", text: <>Order concierge selections by email at <a href="mailto:Orders@Daily-Spread.com" className="font-medium text-primary underline underline-offset-2 hover:text-primary/80">Orders@Daily-Spread.com</a>.</> },
               ].map((highlight) => (
                 <div key={highlight.title} className="rounded-xl border border-border bg-card p-4 shadow-sm">
                   <h3 className="font-heading text-lg font-semibold mb-2">{highlight.title}</h3>
