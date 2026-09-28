@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import SectionHeading from "../components/shared/SectionHeading";
 import ImageComingSoon from "../components/shared/ImageComingSoon";
 import galleryImages from "../data/gallery";
-import { CONCIERGE_MENU, fetchConciergeMenu, getConciergeItemImage } from "../data/conciergeMenu";
+import { CONCIERGE_HUB_GROUPS, CONCIERGE_MENU, fetchConciergeMenu } from "../data/conciergeMenu";
 
 const CATERING_IMAGES = galleryImages.filter((image) => image.category === "Catering");
 const CATERING_HERO = "/images/hero/catering-hero.png";
@@ -190,12 +190,13 @@ export default function Catering() {
               description="Explore breakfast, lunch, hot entrees, sides, desserts, beverages, and service selections for your next meeting or event."
             />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {conciergeMenu.map((category) => {
-                const categoryImage = category.image || getConciergeItemImage(category.items[0]);
+              {CONCIERGE_HUB_GROUPS.map((group) => {
+                const categories = group.slugs.map((slug) => conciergeMenu.find((category) => category.slug === slug)).filter(Boolean);
+                const categoryImage = group.image || categories[0]?.image;
                 return (
-                <a key={category.slug} href={`/catering/concierge/${category.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-                  {categoryImage ? <img src={categoryImage} alt={`${category.title} catering`} className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" /> : <ImageComingSoon />}
-                  <div className="flex flex-1 flex-col p-6"><h3 className="font-heading text-xl font-semibold mb-2">{category.title}</h3><p className="text-sm text-muted-foreground">{category.items.map(([name]) => name).join(", ")}</p><span className="mt-auto pt-6 text-sm font-semibold text-primary">View selections →</span></div>
+                <a key={group.title} href={`/catering/concierge/${group.slugs[0]}`} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+                  {categoryImage ? <img src={categoryImage} alt={`${group.title} catering`} className="aspect-[4/3] w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" /> : <ImageComingSoon />}
+                  <div className="flex flex-1 flex-col p-6"><h3 className="font-heading text-xl font-semibold mb-2">{group.title}</h3>{group.note && <p className="text-sm text-muted-foreground">{group.note}</p>}<span className="mt-auto pt-6 text-sm font-semibold text-primary">View selections →</span></div>
                 </a>
                 );
               })}
